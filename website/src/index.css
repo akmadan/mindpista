@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mindpista Design System - Calming, modern, artistic */
+
+@layer base {
+  :root {
+    /* Core Colors - Calming palette inspired by nature */
+    --background: 28 100% 98%;
+    --foreground: 220 15% 25%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 25%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 25%;
+
+    /* Primary - Warm peach/coral for energy and positivity */
+    --primary: 15 85% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 15 85% 75%;
+
+    /* Secondary - Soft sage green for tranquility */
+    --secondary: 140 25% 85%;
+    --secondary-foreground: 140 30% 25%;
+
+    /* Accent - Gentle lavender for mindfulness */
+    --accent: 260 35% 85%;
+    --accent-foreground: 260 40% 25%;
+
+    /* Muted - Warm neutral */
+    --muted: 28 20% 95%;
+    --muted-foreground: 220 15% 55%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 28 20% 90%;
+    --input: 28 20% 90%;
+    --ring: 15 85% 65%;
+
+    --radius: 1rem;
+
+    /* Custom Design Tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(15 85% 65%) 0%, hsl(260 35% 75%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(28 20% 97%) 100%);
+    --gradient-section: linear-gradient(180deg, hsl(28 100% 98%) 0%, hsl(140 25% 95%) 100%);
+    
+    --shadow-soft: 0 4px 24px hsl(15 85% 65% / 0.08);
+    --shadow-medium: 0 8px 32px hsl(15 85% 65% / 0.12);
+    --shadow-strong: 0 16px 48px hsl(15 85% 65% / 0.16);
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Spacing for consistency */
+    --space-section: 5rem;
+    --space-element: 2rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+}
+
+@layer components {
+  /* Hero Button Styles */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground 
+           px-8 py-4 rounded-full font-semibold text-lg
+           shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-medium)]
+           transition-[var(--transition-smooth)] hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply bg-white/80 backdrop-blur-sm text-primary border border-primary/20
+           px-6 py-3 rounded-full font-medium
+           shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-medium)]
+           transition-[var(--transition-smooth)] hover:scale-105;
+  }
+
+  /* Card Styles */
+  .card-float {
+    @apply bg-gradient-to-br from-white to-muted/50 
+           backdrop-blur-sm border border-white/50
+           rounded-3xl shadow-[var(--shadow-soft)]
+           hover:shadow-[var(--shadow-medium)]
+           transition-[var(--transition-smooth)] hover:-translate-y-1;
+  }
+
+  /* Text Animations */
+  .text-glow {
+    @apply bg-gradient-to-r from-primary via-accent-foreground to-primary 
+           bg-clip-text text-transparent animate-pulse;
+  }
+
+  /* Section Backgrounds */
+  .section-gradient {
+    @apply bg-gradient-to-b from-background to-secondary/30;
+  }
+
+  /* Floating Elements */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .float-animation-delayed {
+    animation: float 6s ease-in-out infinite 2s;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes expertScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
