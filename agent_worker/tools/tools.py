@@ -1,5 +1,12 @@
 from livekit.agents import function_tool, RunContext
-from prompts.system_prompts import AVAILABLE_ROLES
+
+# Define available roles mapping to prompt types
+AVAILABLE_ROLES = {
+    "therapist": "General therapist for mental health support",
+    "meditation": "Meditation guide for mindfulness and relaxation",
+    "sleep": "Sleep specialist for sleep hygiene and insomnia",
+    "anxiety": "Anxiety specialist for anxiety management and coping",
+}
 
 
 @function_tool
@@ -26,14 +33,10 @@ async def set_therapist_role(
             "available_roles": AVAILABLE_ROLES,
         }
 
-    # Get the appropriate system prompt for the selected role
-    system_prompt = get_system_prompt(role_type.lower())
-
     return {
         "success": True,
         "role_type": role_type.lower(),
         "role_description": AVAILABLE_ROLES[role_type.lower()],
-        "system_prompt": system_prompt,
         "message": f"Role set to {role_type.lower()}. I'm now ready to help you as your {AVAILABLE_ROLES[role_type.lower()]}.",
     }
 
