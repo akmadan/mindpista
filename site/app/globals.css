@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #333333;
+
+  /* Brand Colors */
+  --primary-orange: #ff9a3b;
+  --primary-blue: #2489f4;
+  --primary-yellow: #ffd93b;
+  --primary-teal: #33d6a6;
+  --primary-pink: #ff8d85;
+  --soft-gray: #f9f9f9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit);
+
+  --color-brand-orange: var(--primary-orange);
+  --color-brand-blue: var(--primary-blue);
+  --color-brand-yellow: var(--primary-yellow);
+  --color-brand-teal: var(--primary-teal);
+  --color-brand-pink: var(--primary-pink);
+  --color-soft-gray: var(--soft-gray);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}

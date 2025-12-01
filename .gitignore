@@ -1,4 +1,2 @@
 .env
-venv/
-.ruff_cache
-__pycache__
+.venv/
