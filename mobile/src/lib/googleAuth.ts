@@ -19,19 +19,28 @@ export const signInWithGoogle = async () => {
   try {
     await GoogleSignin.hasPlayServices();
     const userInfo = await GoogleSignin.signIn();
-    
-    if (userInfo.data?.idToken) {
+
+    console.log('Google Sign-In Response:', JSON.stringify(userInfo, null, 2));
+
+    // Try to extract idToken from different possible locations
+    const idToken = userInfo.data?.idToken || userInfo.data?.idToken;
+
+    if (idToken) {
+      console.log('ID Token found, signing in with Supabase...');
       const { data, error } = await supabase.auth.signInWithIdToken({
         provider: 'google',
-        token: userInfo.data.idToken,
+        token: idToken,
       });
-      
+
       if (error) {
+        console.error('Supabase sign-in error:', error);
         throw error;
       }
-      
+
+      console.log('Successfully signed in with Supabase');
       return data;
     } else {
+      console.error('No ID token found in response:', userInfo);
       throw new Error('No ID token present!');
     }
   } catch (error: any) {
@@ -46,7 +55,7 @@ export const signInWithGoogle = async () => {
       console.log('Play services not available');
     } else {
       // some other error happened
-      console.error(error);
+      console.error('Google Sign-In Error:', error);
       throw error;
     }
   }
