@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import 'react-native-reanimated';
 
 import { ThemeProvider } from '@/src/providers';
 import { useAppTheme } from '@/src/hooks';

@@ -1,21 +1,37 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors, Spacing, BorderRadius, Typography, CommonStyles } from '@/constants';
+import { Colors, Spacing, Typography, CommonStyles } from '@/constants';
+import { configureGoogleSignIn, signInWithGoogle } from '@/src/lib';
 
 export default function AuthOnboardingScreen() {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        configureGoogleSignIn();
+    }, []);
 
     const handleGoogleSignIn = async () => {
-        // TODO: Implement Google Sign-In
-        console.log('Google Sign-In pressed');
-        router.push('/(tabs)/home');
+        try {
+            setIsLoading(true);
+            const session = await signInWithGoogle();
+            if (session) {
+                router.replace('/(tabs)/home');
+            }
+        } catch (error: any) {
+            console.error('Google Sign-In Error:', error);
+            Alert.alert('Sign In Failed', error.message || 'An error occurred during sign in');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleAppleSignIn = async () => {
         // TODO: Implement Apple Sign-In
         console.log('Apple Sign-In pressed');
-        router.push('/(tabs)/home');
+        // router.push('/(tabs)/home');
+        Alert.alert('Coming Soon', 'Apple Sign-In is not yet implemented.');
     };
 
     return (
@@ -31,16 +47,24 @@ export default function AuthOnboardingScreen() {
                 <TouchableOpacity
                     style={[styles.button, styles.googleButton]}
                     onPress={handleGoogleSignIn}
+                    disabled={isLoading}
                 >
                     <View style={styles.buttonContent}>
-                        <Text style={styles.googleIcon}>G</Text>
-                        <Text style={styles.googleButtonText}>Continue with Google</Text>
+                        {isLoading ? (
+                            <ActivityIndicator color={Colors.googleText} />
+                        ) : (
+                            <>
+                                <Text style={styles.googleIcon}>G</Text>
+                                <Text style={styles.googleButtonText}>Continue with Google</Text>
+                            </>
+                        )}
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[styles.button, styles.appleButton]}
                     onPress={handleAppleSignIn}
+                    disabled={isLoading}
                 >
                     <View style={styles.buttonContent}>
                         <Text style={styles.appleIcon}></Text>
@@ -91,6 +115,7 @@ const styles = StyleSheet.create({
     buttonContent: {
         ...CommonStyles.row,
         gap: Spacing.md,
+        justifyContent: 'center',
     },
     googleButton: {
         backgroundColor: Colors.background,
